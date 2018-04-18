@@ -9,4 +9,8 @@ class Repository {
      fun getNowPlaying(page: Int = 1): Flowable<Responce> {
         return remote.getNowPlaying(page)
     }
+
+    fun searchForMovies(query: String) : Flowable<Responce> {
+        return remote.searchForMovies(query)
+    }
 }

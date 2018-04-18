@@ -27,16 +27,24 @@ class RemoteDataSource {
         return service.getNowPlaying(page)
     }
 
+    fun searchForMovies(query: String) : Flowable<Responce> {
+        return service.searchForMovies(query)
+    }
+
 
     companion object {
-        const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+        const val BASE_URL = "https://api.themoviedb.org/3/"
         const val API_KEY = "4cb1eeab94f45affe2536f2c684a5c9e"
     }
 
 
     interface MovieService {
-        @GET("now_playing?api_key=$API_KEY&language=en-US")
+        @GET("movie/now_playing?api_key=$API_KEY&language=en-US")
         fun getNowPlaying(@Query("page") page: Int) : Flowable<Responce>
+
+        @GET("search/movies?api_key=$API_KEY")
+        fun searchForMovies(@Query("query") query: String) : Flowable<Responce>
+
     }
 
 }
