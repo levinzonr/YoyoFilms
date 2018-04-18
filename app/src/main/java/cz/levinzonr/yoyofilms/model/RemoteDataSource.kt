@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.model
 
 import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Flowable
@@ -36,8 +35,8 @@ class RemoteDataSource {
 
 
     interface MovieService {
-        @GET("movie/now_playing?api_key=$API_KEY&language=en-US")
-        fun getNowPlaying(@Query("page") page: Int = 1) : Flowable<Responce>
+        @GET("now_playing?api_key=$API_KEY&language=en-US")
+        fun getNowPlaying(@Query("page") page: Int) : Flowable<Responce>
     }
 
 }
