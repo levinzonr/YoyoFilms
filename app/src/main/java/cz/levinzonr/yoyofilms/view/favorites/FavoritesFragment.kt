@@ -1,4 +1,4 @@
-package cz.levinzonr.yoyofilms.view
+package cz.levinzonr.yoyofilms.view.favorites
 
 
 import android.os.Bundle

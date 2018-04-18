@@ -7,9 +7,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import cz.levinzonr.yoyofilms.view.FavoritesFragment
-import cz.levinzonr.yoyofilms.view.TrendingFragment
+import cz.levinzonr.yoyofilms.view.favorites.FavoritesFragment
+import cz.levinzonr.yoyofilms.view.trending.TrendingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -2,8 +2,7 @@ package cz.levinzonr.yoyofilms.presenter
 
 import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.model.Responce
-import cz.levinzonr.yoyofilms.view.BaseView
-import cz.levinzonr.yoyofilms.view.TrendingView
+import cz.levinzonr.yoyofilms.view.trending.TrendingView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

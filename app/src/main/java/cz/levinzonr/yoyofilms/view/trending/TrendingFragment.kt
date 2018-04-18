@@ -1,4 +1,4 @@
-package cz.levinzonr.yoyofilms.view
+package cz.levinzonr.yoyofilms.view.trending
 
 
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.TrendingPresenter
-import cz.levinzonr.yoyofilms.view.trending.MovieListAdapter
+import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import kotlinx.android.synthetic.main.fragment_trending.*
 
 
