@@ -3,10 +3,12 @@ package cz.levinzonr.yoyofilms.model.remote
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import cz.levinzonr.yoyofilms.model.Movie
 import io.reactivex.Flowable
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 class RemoteDataSource {
@@ -31,6 +33,10 @@ class RemoteDataSource {
         return service.searchForMovies(query)
     }
 
+    fun getMovieDetails(id : Int) : Flowable<Movie> {
+        return service.getMovieDetail(id)
+    }
+
 
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -44,6 +50,9 @@ class RemoteDataSource {
 
         @GET("search/movies?api_key=$API_KEY")
         fun searchForMovies(@Query("query") query: String) : Flowable<Responce>
+
+        @GET("movie/{id}?api_key=$API_KEY")
+        fun getMovieDetail(@Path("id") id: Int) : Flowable<Movie>
 
     }
 
