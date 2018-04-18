@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(FavoritesFragment())
         adapter.addFragment(TrendingFragment())
+        adapter.addFragment(FavoritesFragment())
         view_pager.adapter = adapter
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             private var previous: Int = 0

@@ -3,6 +3,7 @@ package cz.levinzonr.yoyofilms.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,14 @@ import android.view.ViewGroup
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.TrendingPresenter
+import cz.levinzonr.yoyofilms.view.trending.MovieListAdapter
+import kotlinx.android.synthetic.main.fragment_trending.*
 
 
 class TrendingFragment : Fragment(), TrendingView {
 
     private lateinit var presenter: TrendingPresenter
+    private lateinit var rvAdapter: MovieListAdapter
 
     companion object {
         const val TAG = "Presenter Fragment"
@@ -30,6 +34,11 @@ class TrendingFragment : Fragment(), TrendingView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = TrendingPresenter()
+        rvAdapter = MovieListAdapter()
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = rvAdapter
+        }
         presenter.attachView(this)
         presenter.fetchNowPlaying()
     }
@@ -37,14 +46,21 @@ class TrendingFragment : Fragment(), TrendingView {
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Laoding started")
+        progress_bar.visibility = View.VISIBLE
+        recycler_view.visibility = View.GONE
     }
 
     override fun onLoadingFinished(items: ArrayList<Movie>) {
         Log.d(TAG, "Loadted: ${items.size}")
+        rvAdapter.items = items
+        progress_bar.visibility = View.GONE
+        recycler_view.visibility = View.VISIBLE
     }
 
     override fun onLoadingError(error: String) {
         Log.d(TAG, "Error: $error")
+        progress_bar.visibility = View.GONE
+        recycler_view.visibility = View.GONE
     }
 
     override fun onDestroy() {
