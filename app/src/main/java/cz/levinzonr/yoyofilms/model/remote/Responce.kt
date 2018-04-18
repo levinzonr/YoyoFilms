@@ -1,4 +1,6 @@
-package cz.levinzonr.yoyofilms.model
+package cz.levinzonr.yoyofilms.model.remote
+
+import cz.levinzonr.yoyofilms.model.Movie
 
 class Responce(
     val page: Int,

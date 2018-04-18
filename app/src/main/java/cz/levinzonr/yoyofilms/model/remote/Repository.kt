@@ -1,10 +1,10 @@
-package cz.levinzonr.yoyofilms.model
+package cz.levinzonr.yoyofilms.model.remote
 
 import io.reactivex.Flowable
 
 class Repository {
 
-    private val remote =  RemoteDataSource()
+    private val remote = RemoteDataSource()
 
      fun getNowPlaying(page: Int = 1): Flowable<Responce> {
         return remote.getNowPlaying(page)

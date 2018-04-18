@@ -1,4 +1,4 @@
-package cz.levinzonr.yoyofilms.model
+package cz.levinzonr.yoyofilms.model.remote
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
