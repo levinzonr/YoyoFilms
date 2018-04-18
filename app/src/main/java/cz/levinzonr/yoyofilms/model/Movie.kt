@@ -1,6 +1,6 @@
 package cz.levinzonr.yoyofilms.model
 
-class Movies {
+class Movie {
     var id: Int = -1
     var budget: Int = -1
     var releaseDate: String = String()
