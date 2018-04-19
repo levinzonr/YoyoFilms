@@ -48,7 +48,7 @@ class RemoteDataSource {
         @GET("movie/now_playing?api_key=$API_KEY&language=en-US")
         fun getNowPlaying(@Query("page") page: Int) : Flowable<Responce>
 
-        @GET("search/movies?api_key=$API_KEY")
+        @GET("search/movie?api_key=$API_KEY&language=en-US")
         fun searchForMovies(@Query("query") query: String) : Flowable<Responce>
 
         @GET("movie/{id}?api_key=$API_KEY")
