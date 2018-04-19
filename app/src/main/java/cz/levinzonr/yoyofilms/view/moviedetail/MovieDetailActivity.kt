@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
@@ -48,7 +49,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingFinished(items: Movie) {
+        supportActionBar?.title = items.title
         Log.d(TAG, items.toString())
+        Picasso.get()
+                .load(items.backdropPath)
+                .into(movie_image)
     }
 
     override fun onLoadingError(error: String) {

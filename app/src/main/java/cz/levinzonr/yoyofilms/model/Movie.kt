@@ -11,8 +11,11 @@ class Movie {
     var releaseDate: String = String()
     var title: String = String()
     var overview: String? = null
-    var voteAverage: Number = 0
+    var voteAverage: Number? = null
     var status: String? = null
+
+    var revenue: Int = 0
+    var runtime: Int? = null
 
     var backdropPath: String? = null
     get() = "$IMG_SRC$field"
