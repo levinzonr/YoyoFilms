@@ -19,8 +19,7 @@ import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_film_search.*
 
 
-class FilmSearchFragment : Fragment(), FilmSearchView,
-        SearchView.OnCloseListener, SearchView.OnQueryTextListener {
+class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextListener {
 
     private lateinit var searchMenuItem: MenuItem
     private lateinit var presenter: FilmSearchPresenter
@@ -61,8 +60,19 @@ class FilmSearchFragment : Fragment(), FilmSearchView,
         menu?.findItem(R.id.action_search)?.let { searchMenuItem = it}
         ( searchMenuItem.actionView as SearchView).apply {
             setOnQueryTextListener(this@FilmSearchFragment)
-            setOnCloseListener(this@FilmSearchFragment)
+            setOnCloseListener { Log.d(TAG, "closed"); true }
         }
+        searchMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                presenter.cancelSearch()
+                return true
+            }
+        })
+
     }
 
     override fun onNothingFound() {
@@ -92,9 +102,7 @@ class FilmSearchFragment : Fragment(), FilmSearchView,
                 .setAction(R.string.action_retry, {})
     }
 
-    override fun onClose(): Boolean {
-        return true
-    }
+
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return true

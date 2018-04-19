@@ -1,5 +1,6 @@
 package cz.levinzonr.yoyofilms.presenter
 
+import android.util.Log
 import cz.levinzonr.yoyofilms.model.remote.Repository
 import cz.levinzonr.yoyofilms.model.remote.Responce
 import cz.levinzonr.yoyofilms.view.search.FilmSearchView
@@ -35,6 +36,12 @@ class FilmSearchPresenter : BasePresenter<FilmSearchView> {
                         },
                         {error: Throwable? -> view?.onLoadingError(error.toString()) }
                 )
+    }
+
+    fun cancelSearch() {
+        disposable?.let {
+            if (!it.isDisposed) it.dispose()
+        }
     }
 
     override fun detachView() {
