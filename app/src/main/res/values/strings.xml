@@ -104,4 +104,7 @@
     <string name="title_overview">Overview</string>
     <string name="title_search">Search</string>
     <string name="action_search">Search</string>
+    <string name="empty_msg">Nothing Found</string>
+    <string name="error_loading_msg">An error has occured</string>
+    <string name="action_retry">Retry</string>
 </resources>

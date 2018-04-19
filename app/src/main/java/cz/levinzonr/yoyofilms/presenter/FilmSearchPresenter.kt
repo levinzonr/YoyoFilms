@@ -19,9 +19,13 @@ class FilmSearchPresenter : BasePresenter<FilmSearchView> {
     }
 
     fun setSearchQuery(query : String) {
+        if (query.isEmpty()) {
+            view?.onNothingFound()
+            return
+        }
         view?.onLoadingStarted()
         disposable?.let { if(!it.isDisposed) it.dispose() }
-        disposable = repository.searchForMovies(query).delaySubscription(3, TimeUnit.SECONDS)
+        disposable = repository.searchForMovies(query).delaySubscription(2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(

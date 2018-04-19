@@ -1,6 +1,7 @@
 package cz.levinzonr.yoyofilms.view.trending
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -18,7 +19,7 @@ import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_trending.*
 
 
-class TrendingFragment : Fragment(), TrendingView, MovieListAdapter.OnClickListener{
+class TrendingFragment : Fragment(), TrendingView{
 
     private lateinit var presenter: TrendingPresenter
     private lateinit var rvAdapter: MovieListAdapter
@@ -35,20 +36,24 @@ class TrendingFragment : Fragment(), TrendingView, MovieListAdapter.OnClickListe
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = TrendingPresenter()
-        rvAdapter = MovieListAdapter(this)
+        rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it.id)
+        })
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
             addItemDecoration(VerticalSpaceDecoration())
         }
-        presenter.attachView(this)
         presenter.fetchNowPlaying()
     }
 
-    override fun onItemSelected(movie: Movie) {
-        MovieDetailActivity.startAsIntent(context, movie.id)
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        presenter = TrendingPresenter()
+        presenter.attachView(this)
+
+
     }
+
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Laoding started")

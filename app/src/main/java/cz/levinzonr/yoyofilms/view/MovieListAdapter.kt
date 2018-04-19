@@ -10,7 +10,7 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter(val listener: OnClickListener) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter(val lambda: (Movie) -> Unit) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     var items = ArrayList<Movie>()
     set(value) {
         field = value
@@ -28,7 +28,7 @@ class MovieListAdapter(val listener: OnClickListener) : RecyclerView.Adapter<Mov
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(movie: Movie) {
-            view.setOnClickListener({listener.onItemSelected(movie)})
+            view.setOnClickListener({lambda(movie)})
             view.movie_title.text = movie.title
             view.movie_overview.text = movie.overview?.letString()
             view.movie_rating.text = movie.voteAverage.toString()
