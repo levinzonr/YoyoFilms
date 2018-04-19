@@ -18,7 +18,10 @@ class Movie {
     var runtime: Int? = null
 
     var backdropPath: String? = null
-    get() = "$IMG_SRC$field"
+    get() {
+        if (field == null)  return field
+        return "$IMG_SRC$field"
+    }
 
 
 

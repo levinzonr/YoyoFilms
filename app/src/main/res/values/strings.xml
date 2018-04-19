@@ -102,4 +102,5 @@
     <string name="title_budget">Budget</string>
     <string name="title_revenue">Revenue</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_overview">Overview</string>
 </resources>

@@ -11,6 +11,8 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import kotlinx.android.synthetic.main.card_details.*
+import kotlinx.android.synthetic.main.content_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
@@ -49,10 +51,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingFinished(items: Movie) {
-        supportActionBar?.title = items.title
+        toolbar_layout.title = items.title
+        movie_budget.text = items.budget.toString()
+        movie_overview.text = items.overview
+        movie_revenue.text = items.revenue.toString()
+        movie_runtime.text = items.runtime.toString()
         Log.d(TAG, items.toString())
         Picasso.get()
-                .load(items.backdropPath)
+                .load(items.backdropPath ?: items.posterPath)
                 .into(movie_image)
     }
 
