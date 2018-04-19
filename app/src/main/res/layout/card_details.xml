@@ -5,7 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ProgressBar
+        android:id="@+id/details_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/details_view"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,18 +20,17 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_attach_money_black_24dp" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/movie_budget_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/title_budget"
@@ -39,7 +45,7 @@
             android:layout_marginEnd="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/movie_revenue_label"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/movie_revenue" />
 
         <TextView
@@ -50,22 +56,26 @@
             android:layout_marginStart="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/movie_revenue_label"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/movie_revenue_label" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_revenue_label"
+            app:layout_constraintTop_toTopOf="@+id/movie_revenue_label" />
 
         <TextView
             android:id="@+id/movie_runtime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/movie_revenue_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/title_revenue"
@@ -74,17 +84,37 @@
             app:layout_constraintTop_toBottomOf="@+id/movie_budget_label" />
 
         <ImageView
-            android:tint="@color/colorPrimary"
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
+            android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/movie_runtime"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
             app:srcCompat="@drawable/ic_timelapse_black_24dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:tint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_runtime"
+            app:layout_constraintEnd_toStartOf="@+id/movie_rating"
+            app:layout_constraintTop_toTopOf="@+id/movie_runtime"
+            app:srcCompat="@drawable/ic_stars_white_24dp" />
+
+        <TextView
+            android:id="@+id/movie_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
@@ -48,21 +49,28 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Started")
+        details_view.visibility = View.GONE
+        details_progressbar.visibility = View.VISIBLE
     }
 
     override fun onLoadingFinished(items: Movie) {
+
         toolbar_layout.title = items.title
-        movie_budget.text = items.budget.toString()
+        movie_budget.text = getString(R.string.global_currency_usd, items.budget)
         movie_overview.text = items.overview
-        movie_revenue.text = items.revenue.toString()
-        movie_runtime.text = items.runtime.toString()
+        movie_revenue.text = getString(R.string.global_currency_usd, items.revenue)
+        movie_runtime.text = getString(R.string.value_minutes, items.runtime)
+        movie_rating.text = items.voteAverage.toString()
         Log.d(TAG, items.toString())
         Picasso.get()
                 .load(items.backdropPath ?: items.posterPath)
                 .into(movie_image)
+        details_view.visibility = View.VISIBLE
+        details_progressbar.visibility = View.GONE
     }
 
     override fun onLoadingError(error: String) {
-        Log.d(TAG, "Error: $error")
+        details_view.visibility = View.VISIBLE
+        details_progressbar.visibility = View.GONE
     }
 }
