@@ -13,6 +13,7 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.TrendingPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
+import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import kotlinx.android.synthetic.main.fragment_trending.*
 
 
@@ -38,6 +39,7 @@ class TrendingFragment : Fragment(), TrendingView {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
+            addItemDecoration(VerticalSpaceDecoration())
         }
         presenter.attachView(this)
         presenter.fetchNowPlaying()
