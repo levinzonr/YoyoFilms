@@ -4,9 +4,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_favorites">Favorites</string>
-    <string name="title_popular">Trending</string>
+    <string name="title_popular">In Theaters</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
     <string name="large_text">
@@ -103,4 +102,5 @@
     <string name="title_revenue">Revenue</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_overview">Overview</string>
+    <string name="title_search">Search</string>
 </resources>

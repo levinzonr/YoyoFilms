@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import cz.levinzonr.yoyofilms.view.favorites.FavoritesFragment
+import cz.levinzonr.yoyofilms.view.search.FilmSearchFragment
 import cz.levinzonr.yoyofilms.view.trending.TrendingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,6 +24,10 @@ class MainActivity : AppCompatActivity() {
                 view_pager.currentItem = 0
                 true
             }
+            R.id.navigation_search -> {
+                view_pager.currentItem = 2
+                true
+            }
             else -> {
                 true
             }
@@ -36,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(TrendingFragment())
         adapter.addFragment(FavoritesFragment())
+        adapter.addFragment(FilmSearchFragment())
         view_pager.adapter = adapter
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             private var previous: Int = 0
