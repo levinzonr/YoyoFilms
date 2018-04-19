@@ -2,11 +2,11 @@ package cz.levinzonr.yoyofilms.view
 
 import cz.levinzonr.yoyofilms.model.Movie
 
-interface BaseView{
+interface BaseView<in V>{
 
     fun onLoadingStarted()
 
-    fun onLoadingFinished(items: ArrayList<Movie>)
+    fun onLoadingFinished(items: V)
 
     fun onLoadingError(error: String)
 

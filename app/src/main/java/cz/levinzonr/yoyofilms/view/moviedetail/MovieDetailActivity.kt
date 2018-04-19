@@ -1,0 +1,57 @@
+package cz.levinzonr.yoyofilms.view.moviedetail
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import cz.levinzonr.yoyofilms.R
+import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
+import kotlinx.android.synthetic.main.activity_movie_detail.*
+
+class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
+
+    private lateinit var presenter: MovieDetailPresenter
+
+    companion object {
+        private const val TAG = "DetailActivity"
+        private const val MOVIE_ID = "MovieID"
+
+        fun startAsIntent(context: Context, id: Int) {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_ID, id)
+            context.startActivity(intent)
+        }
+
+    }
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_movie_detail)
+        setSupportActionBar(toolbar)
+        presenter = MovieDetailPresenter()
+        presenter.attachView(this)
+        presenter.fetchMovieDetails(intent.getIntExtra(MOVIE_ID, -1))
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+    }
+
+
+    override fun onLoadingStarted() {
+        Log.d(TAG, "Started")
+    }
+
+    override fun onLoadingFinished(items: Movie) {
+        Log.d(TAG, items.toString())
+    }
+
+    override fun onLoadingError(error: String) {
+        Log.d(TAG, "Error: $error")
+    }
+}

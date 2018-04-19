@@ -12,7 +12,19 @@ class Movie {
     var title: String = String()
     var overview: String? = null
     var voteAverage: Number = 0
+    var status: String? = null
+
+    var backdropPath: String? = null
+    get() = "$IMG_SRC$field"
+
+
 
     var posterPath: String? = null
     get() = "$IMG_SRC$field"
+
+    override fun toString(): String {
+        return "Movie(title='$title', overview=$overview, voteAverage=$voteAverage, status=$status)"
+    }
+
+
 }
