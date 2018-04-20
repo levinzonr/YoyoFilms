@@ -3,6 +3,7 @@ package cz.levinzonr.yoyofilms.model.local
 import cz.levinzonr.yoyofilms.model.Movie
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 class LocalDataSource {
 
@@ -25,7 +26,7 @@ class LocalDataSource {
         return db.filmsDao().findAll()
     }
 
-    fun getFilmDetails(id: Int) : Flowable<Movie> {
+    fun getFilmDetails(id: Int) : Maybe<Movie> {
         return db.filmsDao().findById(id)
     }
 

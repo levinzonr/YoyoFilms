@@ -1,10 +1,10 @@
 package cz.levinzonr.yoyofilms.model
 
+import android.util.Log
 import cz.levinzonr.yoyofilms.model.local.LocalDataSource
 import cz.levinzonr.yoyofilms.model.remote.RemoteDataSource
 import cz.levinzonr.yoyofilms.model.remote.Responce
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.*
 
 class Repository {
 
@@ -25,6 +25,15 @@ class Repository {
 
     fun getFavorites() : Flowable<List<Movie>> {
         return local.getFavorites()
+    }
+
+    fun isInFavorites(id: Int) : Single<Boolean> {
+        return local.getFilmDetails(id).switchIfEmpty(Maybe.just(Movie()))
+                .toSingle()
+                .flatMap {
+                    val found = it.id != -1
+                    return@flatMap Single.just(found)
+                }
     }
 
     fun addToFavorites(movie: Movie) : Completable {

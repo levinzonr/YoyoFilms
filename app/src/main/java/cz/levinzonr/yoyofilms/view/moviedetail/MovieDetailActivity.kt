@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Genre
@@ -46,17 +48,20 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         presenter.fetchMovieDetails(movie.id)
         toolbar_layout.title = movie.title
         movie_overview.text = movie.overview
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        button_favorites.setOnClickListener { view ->
+           presenter.onFavoriteButtonClicked()
         }
     }
 
+    override fun setInFavorites(favorite: Boolean) {
+        Log.d(TAG, "FAvorite? $favorite")
+    }
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Started")
         details_view.visibility = View.GONE
         details_progressbar.visibility = View.VISIBLE
+        button_favorites.isEnabled = false
     }
 
     fun ArrayList<Genre>.asString() : String {
@@ -64,7 +69,25 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         return string.substring(1, string.length-1)
     }
 
+    override fun onAddedToFavorites() {
+
+    }
+
+    override fun onDeletedFromFavorites() {
+
+    }
+
+    override fun onRequestConfirmation(callback: (Boolean) -> Unit) {
+        AlertDialog.Builder(this)
+                .setTitle("Unfavoer")
+                .setMessage("Are u sure")
+                .setNegativeButton(android.R.string.no, {_,_-> callback(false)})
+                .setPositiveButton(android.R.string.yes, {_, _ -> callback(true)})
+                .create().show()
+    }
+
     override fun onLoadingFinished(items: Movie) {
+        button_favorites.isEnabled = true
         toolbar_layout.title = items.title
         movie_budget.text = getString(R.string.global_currency_usd, items.budget)
         movie_rd.text = items.releaseDate

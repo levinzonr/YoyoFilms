@@ -2,8 +2,10 @@ package cz.levinzonr.yoyofilms.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverters
 import android.os.Parcel
 import android.os.Parcelable
+import cz.levinzonr.yoyofilms.model.local.Converters
 
 @Entity
 class Movie() : Parcelable {
@@ -27,8 +29,10 @@ class Movie() : Parcelable {
     var releaseDate: String = String()
     var title: String = String()
     var overview: String? = null
-    var voteAverage: Number? = -1
+    var voteAverage: Double? = -1.0
     var status: String? = String()
+
+    @TypeConverters(Converters::class)
     var genres = ArrayList<Genre>()
     var tagline: String? = null
     var revenue: Int = -1

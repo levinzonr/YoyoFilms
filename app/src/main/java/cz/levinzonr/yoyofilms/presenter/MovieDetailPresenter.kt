@@ -1,5 +1,6 @@
 package cz.levinzonr.yoyofilms.presenter
 
+import android.util.Log
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailView
@@ -12,6 +13,8 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     private val repository = Repository()
     private val cd = CompositeDisposable()
     private var view : MovieDetailView? = null
+    private lateinit var movie: Movie
+    private var isFavorite: Boolean = false
 
     override fun attachView(view: MovieDetailView) {
         this.view = view
@@ -22,14 +25,47 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
             view?.onLoadingError("Bad id")
             return
         }
+
+        cd.add(repository.isInFavorites(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({t: Boolean? -> t?.let { isFavorite = t; view?.setInFavorites(t) } }))
+
         view?.onLoadingStarted()
         cd.add(repository.getMovieDetails(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {resp: Movie? -> view?.onLoadingFinished(resp!!) },
+                        {resp: Movie? -> resp?.let {  movie = resp;view?.onLoadingFinished(resp) } },
                         {t: Throwable? -> view?.onLoadingError(t.toString()) }
                 ))
+    }
+
+    fun onFavoriteButtonClicked() {
+        if (isFavorite) {
+            view?.onRequestConfirmation {
+                if (it) {
+                    removeFromFavorites()
+                }
+            }
+        } else {
+            addToFavorites()
+        }
+    }
+
+    private fun addToFavorites() {
+        cd.add(repository.addToFavorites(movie)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({view?.onAddedToFavorites()})
+        )
+    }
+
+    private fun removeFromFavorites() {
+        cd.add(repository.removeFromFavorites(movie)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({view?.onDeletedFromFavorites()}))
     }
 
     override fun detachView() {

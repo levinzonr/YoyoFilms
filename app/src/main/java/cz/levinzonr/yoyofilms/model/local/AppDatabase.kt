@@ -1,14 +1,13 @@
 package cz.levinzonr.yoyofilms.model.local
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.*
 import android.content.Context
 import cz.levinzonr.yoyofilms.App
 import cz.levinzonr.yoyofilms.model.Movie
 
 @Database(version = 1, entities = [Movie::class])
-abstract class AppDatabase(context: Context) : RoomDatabase() {
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase() {
 
     private object Holder { val instance = Room.databaseBuilder(App.getContext(), AppDatabase::class.java, DB_NAME ).build() }
 
