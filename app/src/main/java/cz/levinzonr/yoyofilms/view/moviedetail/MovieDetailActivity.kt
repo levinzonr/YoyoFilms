@@ -48,6 +48,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         button_favorites.setOnClickListener { view ->
             presenter.onFavoriteButtonClicked()
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+
     }
 
     override fun setInFavorites(favorite: Boolean) {
