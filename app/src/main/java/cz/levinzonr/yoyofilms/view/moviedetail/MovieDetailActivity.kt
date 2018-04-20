@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.content_movie_detail.*
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     private lateinit var presenter: MovieDetailPresenter
-    private var dialog: AlertDialog? = null
 
     companion object {
         private const val TAG = "DetailActivity"
@@ -38,8 +37,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         }
 
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
