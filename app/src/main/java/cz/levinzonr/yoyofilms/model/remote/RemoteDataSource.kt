@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import cz.levinzonr.yoyofilms.model.Movie
 import io.reactivex.Flowable
+import io.reactivex.Maybe
+import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -33,7 +35,7 @@ class RemoteDataSource {
         return service.searchForMovies(query)
     }
 
-    fun getFilmDetails(id : Int) : Flowable<Movie> {
+    fun getFilmDetails(id : Int) : Single<Movie> {
         return service.getMovieDetail(id)
     }
 
@@ -52,7 +54,7 @@ class RemoteDataSource {
         fun searchForMovies(@Query("query") query: String) : Flowable<Response>
 
         @GET("movie/{id}?api_key=$API_KEY")
-        fun getMovieDetail(@Path("id") id: Int) : Flowable<Movie>
+        fun getMovieDetail(@Path("id") id: Int) : Single<Movie>
 
     }
 

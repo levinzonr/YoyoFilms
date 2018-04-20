@@ -21,13 +21,13 @@ class Repository {
         return remote.searchForMovies(query)
     }
 
-    fun getMovieDetails(id: Int) : Flowable<Movie> {
+    fun getMovieDetails(id: Int) : Single<Movie> {
         return if (netManager.isConnected())
             remote.getFilmDetails(id).flatMap {
-                return@flatMap local.updateFilm(it).toSingleDefault(it).toFlowable()
+                return@flatMap local.updateFilm(it).toSingleDefault(it)
             }
         else
-            local.getFilmDetails(id).toFlowable()
+            local.getFilmDetails(id).toSingle()
     }
 
     fun getFavorites() : Flowable<List<Movie>> {

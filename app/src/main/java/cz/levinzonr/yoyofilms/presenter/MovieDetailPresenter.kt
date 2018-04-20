@@ -36,8 +36,8 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {resp: Movie? -> resp?.let {  movie = resp;view?.onLoadingFinished(resp) } },
-                        {t: Throwable? -> view?.onLoadingError(t.toString()) }
+                        {resp: Movie? -> Log.d("AS:", "$resp");resp?.let {  movie = resp;view?.onLoadingFinished(resp) } },
+                        {t: Throwable? ->Log.d("AS", t.toString()); view?.onLoadingError(t.toString()) }
                 ))
     }
 

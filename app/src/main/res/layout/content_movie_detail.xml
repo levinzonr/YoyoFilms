@@ -9,11 +9,9 @@
     tools:showIn="@layout/activity_movie_detail">
 
 
-
-    <include
+    <android.support.v7.widget.CardView
         android:visibility="visible"
         android:id="@+id/details"
-        layout="@layout/card_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -21,7 +19,28 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:visibility="gone"
+            layout="@layout/view_error"
+            android:id="@+id/error_view"/>
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/details_view"
+            layout="@layout/card_details"/>
+
+        <ProgressBar
+            android:layout_margin="@dimen/fab_margin"
+            tools:visibility="visible"
+            android:id="@+id/details_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v7.widget.CardView>
+
+
 
 
     <android.support.v7.widget.CardView

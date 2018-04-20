@@ -17,6 +17,7 @@ import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.card_details.*
 import kotlinx.android.synthetic.main.content_movie_detail.*
+import kotlinx.android.synthetic.main.view_error.*
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
@@ -53,6 +54,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
+        button_retry.setOnClickListener({
+            presenter.fetchMovieDetails(movie.id)
+        })
+
     }
 
     override fun setInFavorites(favorite: Boolean) {
@@ -67,6 +72,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         Log.d(TAG, "Started")
         details_view.visibility = View.GONE
         details_progressbar.visibility = View.VISIBLE
+        error_view.visibility = View.GONE
         button_favorites.isEnabled = false
     }
 
@@ -92,6 +98,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingFinished(items: Movie) {
+        error_view.visibility = View.GONE
         Log.d(TAG, items.getBackdrop())
         button_favorites.isEnabled = true
         toolbar_layout.title = items.title
@@ -111,7 +118,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingError(error: String) {
-        details_view.visibility = View.VISIBLE
+        error_view.visibility = View.VISIBLE
+        details_view.visibility = View.GONE
         details_progressbar.visibility = View.GONE
     }
 
