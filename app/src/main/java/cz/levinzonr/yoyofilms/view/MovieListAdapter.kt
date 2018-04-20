@@ -29,10 +29,10 @@ class MovieListAdapter(val lambda: (Movie) -> Unit) : RecyclerView.Adapter<Movie
             view.movie_title.text = movie.title
             view.movie_overview.text = movie.overview?.letString()
             view.movie_rating.text = movie.voteAverage.toString()
-            Log.d("IMAGE:", movie.posterPath)
             Picasso.get()
                     .load(movie.getPoster())
-                    .error(R.drawable.ic_home_black_24dp)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
                     .into(view.movie_image)
         }
     }
