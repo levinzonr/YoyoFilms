@@ -1,5 +1,7 @@
 package cz.levinzonr.yoyofilms.model
 
+import cz.levinzonr.yoyofilms.App
+import cz.levinzonr.yoyofilms.androidutils.NetManager
 import cz.levinzonr.yoyofilms.model.local.LocalDataSource
 import cz.levinzonr.yoyofilms.model.remote.RemoteDataSource
 import cz.levinzonr.yoyofilms.model.remote.Response
@@ -9,6 +11,7 @@ class Repository {
 
     private val remote = RemoteDataSource()
     private val local = LocalDataSource()
+    private val netManager = NetManager(App.getContext())
 
      fun getNowPlaying(page: Int = 1): Flowable<Response> {
         return remote.getNowPlaying(page)
@@ -19,7 +22,12 @@ class Repository {
     }
 
     fun getMovieDetails(id: Int) : Flowable<Movie> {
-        return remote.getMovieDetails(id)
+        return if (netManager.isConnected())
+            remote.getFilmDetails(id).flatMap {
+                return@flatMap local.updateFilm(it).toSingleDefault(it).toFlowable()
+            }
+        else
+            local.getFilmDetails(id).toFlowable()
     }
 
     fun getFavorites() : Flowable<List<Movie>> {

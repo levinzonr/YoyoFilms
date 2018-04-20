@@ -30,4 +30,10 @@ class LocalDataSource {
         return db.filmsDao().findById(id)
     }
 
+    fun updateFilm(film: Movie) : Completable {
+        return  Completable.fromCallable {
+            db.filmsDao().update(film)
+        }
+    }
+
 }

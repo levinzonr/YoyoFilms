@@ -33,7 +33,7 @@ class RemoteDataSource {
         return service.searchForMovies(query)
     }
 
-    fun getMovieDetails(id : Int) : Flowable<Movie> {
+    fun getFilmDetails(id : Int) : Flowable<Movie> {
         return service.getMovieDetail(id)
     }
 
