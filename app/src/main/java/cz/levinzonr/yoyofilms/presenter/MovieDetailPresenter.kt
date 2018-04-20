@@ -44,20 +44,18 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     fun onFavoriteButtonClicked() {
         if (isFavorite) {
             view?.onRequestConfirmation {
-                if (it) {
+                if (it)
                     removeFromFavorites()
-                }
             }
-        } else {
+        } else
             addToFavorites()
-        }
     }
 
     private fun addToFavorites() {
         cd.add(repository.addToFavorites(movie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({view?.onAddedToFavorites()})
+                .subscribe({ isFavorite = true; view?.onAddedToFavorites()})
         )
     }
 
@@ -65,7 +63,7 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
         cd.add(repository.removeFromFavorites(movie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({view?.onDeletedFromFavorites()}))
+                .subscribe({isFavorite = false; view?.onDeletedFromFavorites()}))
     }
 
     override fun detachView() {

@@ -2,13 +2,17 @@ package cz.levinzonr.yoyofilms.view.moviedetail
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Genre
@@ -21,6 +25,7 @@ import kotlinx.android.synthetic.main.content_movie_detail.*
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     private lateinit var presenter: MovieDetailPresenter
+    private var dialog: AlertDialog? = null
 
     companion object {
         private const val TAG = "DetailActivity"
@@ -49,12 +54,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         toolbar_layout.title = movie.title
         movie_overview.text = movie.overview
         button_favorites.setOnClickListener { view ->
-           presenter.onFavoriteButtonClicked()
+            presenter.onFavoriteButtonClicked()
         }
     }
 
     override fun setInFavorites(favorite: Boolean) {
         Log.d(TAG, "FAvorite? $favorite")
+        val dr = if (favorite)
+            ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp)
+        else ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp)
+        button_favorites.setImageDrawable(dr)
     }
 
     override fun onLoadingStarted() {
@@ -70,20 +79,17 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onAddedToFavorites() {
-
+        Toast.makeText(this, R.string.favorites_added_message, Toast.LENGTH_SHORT).show()
+        button_favorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp))
     }
 
     override fun onDeletedFromFavorites() {
-
+        Toast.makeText(this, R.string.favorites_deleted_message, Toast.LENGTH_SHORT).show()
+        button_favorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp))
     }
 
     override fun onRequestConfirmation(callback: (Boolean) -> Unit) {
-        AlertDialog.Builder(this)
-                .setTitle("Unfavoer")
-                .setMessage("Are u sure")
-                .setNegativeButton(android.R.string.no, {_,_-> callback(false)})
-                .setPositiveButton(android.R.string.yes, {_, _ -> callback(true)})
-                .create().show()
+        ConfirmationDialog.show(supportFragmentManager, callback)
     }
 
     override fun onLoadingFinished(items: Movie) {
@@ -107,5 +113,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     override fun onLoadingError(error: String) {
         details_view.visibility = View.VISIBLE
         details_progressbar.visibility = View.GONE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
     }
 }

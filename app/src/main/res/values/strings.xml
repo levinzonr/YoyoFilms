@@ -115,6 +115,10 @@
     <string name="label_box_office">Box Office</string>
     <string name="label_revenue">Revenue:</string>
     <string name="label_budget">Budget:</string>
+    <string name="confirmation_title">Deleting from favorites</string>
+    <string name="confirmation_msg">Are you suree you want to delete this movie from favorite?</string>
+    <string name="favorites_deleted_message">Movie was deleted</string>
+    <string name="favorites_added_message">Added to favorites</string>
 
 
 </resources>
