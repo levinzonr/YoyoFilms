@@ -1,9 +1,8 @@
 package cz.levinzonr.yoyofilms.model
 
-import android.util.Log
 import cz.levinzonr.yoyofilms.model.local.LocalDataSource
 import cz.levinzonr.yoyofilms.model.remote.RemoteDataSource
-import cz.levinzonr.yoyofilms.model.remote.Responce
+import cz.levinzonr.yoyofilms.model.remote.Response
 import io.reactivex.*
 
 class Repository {
@@ -11,11 +10,11 @@ class Repository {
     private val remote = RemoteDataSource()
     private val local = LocalDataSource()
 
-     fun getNowPlaying(page: Int = 1): Flowable<Responce> {
+     fun getNowPlaying(page: Int = 1): Flowable<Response> {
         return remote.getNowPlaying(page)
     }
 
-    fun searchForMovies(query: String) : Flowable<Responce> {
+    fun searchForMovies(query: String) : Flowable<Response> {
         return remote.searchForMovies(query)
     }
 
@@ -31,8 +30,7 @@ class Repository {
         return local.getFilmDetails(id).switchIfEmpty(Maybe.just(Movie()))
                 .toSingle()
                 .flatMap {
-                    val found = it.id != -1
-                    return@flatMap Single.just(found)
+                    return@flatMap Single.just(it.id != -1)
                 }
     }
 

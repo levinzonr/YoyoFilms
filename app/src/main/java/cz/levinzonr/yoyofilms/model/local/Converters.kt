@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.model.local
 
 import android.arch.persistence.room.TypeConverter
-import android.arch.persistence.room.TypeConverters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import cz.levinzonr.yoyofilms.model.Genre

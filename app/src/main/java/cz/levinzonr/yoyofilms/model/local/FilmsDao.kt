@@ -6,7 +6,6 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 @Dao
-@TypeConverters(Converters::class)
 interface FilmsDao {
 
 

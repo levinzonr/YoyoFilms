@@ -2,7 +2,7 @@ package cz.levinzonr.yoyofilms.model.remote
 
 import cz.levinzonr.yoyofilms.model.Movie
 
-class Responce(
+class Response(
     val page: Int,
     val totalResults: Int,
     val totalPages: Int,

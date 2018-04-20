@@ -14,7 +14,7 @@ class ConfirmationDialog : DialogFragment() {
 
     companion object {
 
-        const val TAG = "ConfirmationDialog"
+        private const val TAG = "ConfirmationDialog"
 
         fun show(fragmentManager: FragmentManager, callback: (Boolean) -> Unit) {
             var fragment = fragmentManager.findFragmentByTag(TAG) as? ConfirmationDialog

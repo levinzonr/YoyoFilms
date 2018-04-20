@@ -25,11 +25,11 @@ class RemoteDataSource {
     private val service = retrofit.create(MovieService::class.java)
 
 
-    fun getNowPlaying(page: Int) : Flowable<Responce> {
+    fun getNowPlaying(page: Int) : Flowable<Response> {
         return service.getNowPlaying(page)
     }
 
-    fun searchForMovies(query: String) : Flowable<Responce> {
+    fun searchForMovies(query: String) : Flowable<Response> {
         return service.searchForMovies(query)
     }
 
@@ -46,10 +46,10 @@ class RemoteDataSource {
 
     interface MovieService {
         @GET("movie/now_playing?api_key=$API_KEY&language=en-US")
-        fun getNowPlaying(@Query("page") page: Int) : Flowable<Responce>
+        fun getNowPlaying(@Query("page") page: Int) : Flowable<Response>
 
         @GET("search/movie?api_key=$API_KEY&language=en-US")
-        fun searchForMovies(@Query("query") query: String) : Flowable<Responce>
+        fun searchForMovies(@Query("query") query: String) : Flowable<Response>
 
         @GET("movie/{id}?api_key=$API_KEY")
         fun getMovieDetail(@Path("id") id: Int) : Flowable<Movie>

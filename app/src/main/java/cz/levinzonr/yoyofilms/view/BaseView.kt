@@ -1,6 +1,5 @@
 package cz.levinzonr.yoyofilms.view
 
-import cz.levinzonr.yoyofilms.model.Movie
 
 interface BaseView<in V>{
 

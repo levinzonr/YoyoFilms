@@ -32,7 +32,6 @@ class Movie() : Parcelable {
     var voteAverage: Double? = -1.0
     var status: String? = String()
 
-    @TypeConverters(Converters::class)
     var genres = ArrayList<Genre>()
     var tagline: String? = null
     var revenue: Int = -1

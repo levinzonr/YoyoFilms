@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.model.local
 
 import android.arch.persistence.room.*
-import android.content.Context
 import cz.levinzonr.yoyofilms.App
 import cz.levinzonr.yoyofilms.model.Movie
 

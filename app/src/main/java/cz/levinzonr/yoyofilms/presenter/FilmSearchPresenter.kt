@@ -1,7 +1,7 @@
 package cz.levinzonr.yoyofilms.presenter
 
 import cz.levinzonr.yoyofilms.model.Repository
-import cz.levinzonr.yoyofilms.model.remote.Responce
+import cz.levinzonr.yoyofilms.model.remote.Response
 import cz.levinzonr.yoyofilms.view.search.FilmSearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -29,7 +29,7 @@ class FilmSearchPresenter : BasePresenter<FilmSearchView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {t: Responce? -> t?.let {
+                        {t: Response? -> t?.let {
                         if (!t.results.isEmpty()) view?.onLoadingFinished(t.results)
                         else view?.onNothingFound() }
                         },

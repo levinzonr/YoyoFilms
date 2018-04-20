@@ -1,7 +1,7 @@
 package cz.levinzonr.yoyofilms.presenter
 
 import cz.levinzonr.yoyofilms.model.Repository
-import cz.levinzonr.yoyofilms.model.remote.Responce
+import cz.levinzonr.yoyofilms.model.remote.Response
 import cz.levinzonr.yoyofilms.view.trending.TrendingView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +23,7 @@ class TrendingPresenter : BasePresenter<TrendingView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {resp: Responce? -> view?.onLoadingFinished(resp!!.results) },
+                        {resp: Response? -> view?.onLoadingFinished(resp!!.results) },
                         {t: Throwable? -> view?.onLoadingError(t.toString())  }))
     }
 

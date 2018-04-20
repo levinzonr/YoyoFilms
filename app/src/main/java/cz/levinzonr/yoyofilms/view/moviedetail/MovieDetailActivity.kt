@@ -2,17 +2,12 @@ package cz.levinzonr.yoyofilms.view.moviedetail
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Genre
