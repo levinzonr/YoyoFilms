@@ -35,16 +35,11 @@ class FavoritesFragment : Fragment(), FavoritesView {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(VerticalSpaceDecoration())
         }
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
         presenter = FavoritesPresenter()
         presenter.attachView(this)
         presenter.getFavorites()
 
     }
-
 
     override fun onLoadingStarted() {
         progress_bar.visibility = View.VISIBLE
@@ -60,4 +55,10 @@ class FavoritesFragment : Fragment(), FavoritesView {
 
     override fun onLoadingError(error: String) {
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.detachView()
+    }
+
 }

@@ -45,12 +45,13 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(VerticalSpaceDecoration())
         }
+        presenter.attachView(this)
+
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         presenter = FilmSearchPresenter()
-        presenter.attachView(this)
 
     }
 
@@ -113,9 +114,11 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         return  true
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "DestroView")
         presenter.detachView()
     }
+
 
 }

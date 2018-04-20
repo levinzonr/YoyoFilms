@@ -14,6 +14,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        val ITEMS = arrayListOf(
+                R.string.title_popular,
+                R.string.title_favorites,
+                R.string.title_search)
+    }
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_favorites -> {
@@ -54,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
+                supportActionBar?.title = getString(ITEMS[position])
                 navigation.menu.getItem(previous).isChecked = false
                 navigation.menu.getItem(position).isChecked = true
                 previous = position

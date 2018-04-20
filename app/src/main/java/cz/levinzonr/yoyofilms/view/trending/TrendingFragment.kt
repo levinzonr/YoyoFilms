@@ -35,6 +35,7 @@ class TrendingFragment : Fragment(), TrendingView{
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        Log.d(TAG, "ViewCreated")
         super.onViewCreated(view, savedInstanceState)
         rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it)
         })
@@ -43,16 +44,11 @@ class TrendingFragment : Fragment(), TrendingView{
             adapter = rvAdapter
             addItemDecoration(VerticalSpaceDecoration())
         }
+        presenter = TrendingPresenter()
+        presenter.attachView(this)
         presenter.fetchNowPlaying()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        presenter = TrendingPresenter()
-        presenter.attachView(this)
-
-
-    }
 
 
     override fun onLoadingStarted() {
@@ -74,8 +70,9 @@ class TrendingFragment : Fragment(), TrendingView{
         recycler_view.visibility = View.GONE
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "DestroView")
         presenter.detachView()
     }
 }
