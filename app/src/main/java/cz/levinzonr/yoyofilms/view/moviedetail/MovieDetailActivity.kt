@@ -85,6 +85,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingFinished(items: Movie) {
+        Log.d(TAG, items.getBackdrop())
         button_favorites.isEnabled = true
         toolbar_layout.title = items.title
         movie_budget.text = getString(R.string.global_currency_usd, items.budget)
@@ -96,7 +97,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         movie_rating.text = items.voteAverage.toString()
         Log.d(TAG, items.toString())
         Picasso.get()
-                .load(items.backdropPath ?: items.posterPath)
+                .load(items.getBackdrop())
                 .into(movie_image)
         details_view.visibility = View.VISIBLE
         details_progressbar.visibility = View.GONE

@@ -38,15 +38,11 @@ class Movie() : Parcelable {
     var runtime: Int? = null
 
     var backdropPath: String? = null
-    get() {
-        if (field == null)  return field
-        return "$IMG_SRC$field"
-    }
+
 
 
 
     var posterPath: String? = null
-    get() = "$IMG_SRC$field"
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -79,6 +75,14 @@ class Movie() : Parcelable {
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    fun getPoster() : String {
+        return "$IMG_SRC$posterPath"
+    }
+
+    fun getBackdrop() : String {
+        return "$IMG_SRC${backdropPath?: posterPath}"
     }
 
 }

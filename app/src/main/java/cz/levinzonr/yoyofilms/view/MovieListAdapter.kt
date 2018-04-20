@@ -31,7 +31,7 @@ class MovieListAdapter(val lambda: (Movie) -> Unit) : RecyclerView.Adapter<Movie
             view.movie_rating.text = movie.voteAverage.toString()
             Log.d("IMAGE:", movie.posterPath)
             Picasso.get()
-                    .load(movie.posterPath)
+                    .load(movie.getPoster())
                     .error(R.drawable.ic_home_black_24dp)
                     .into(view.movie_image)
         }
