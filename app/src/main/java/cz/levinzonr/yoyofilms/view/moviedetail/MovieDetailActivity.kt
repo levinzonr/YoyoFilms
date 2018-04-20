@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
+import cz.levinzonr.yoyofilms.model.Genre
 import cz.levinzonr.yoyofilms.model.Movie
 import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -58,9 +59,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         details_progressbar.visibility = View.VISIBLE
     }
 
+    fun ArrayList<Genre>.asString() : String {
+        val string = this.toString()
+        return string.substring(1, string.length-1)
+    }
+
     override fun onLoadingFinished(items: Movie) {
         toolbar_layout.title = items.title
         movie_budget.text = getString(R.string.global_currency_usd, items.budget)
+        movie_rd.text = items.releaseDate
+        movie_genre.text = items.genres.asString()
         movie_overview.text = items.overview
         movie_revenue.text = getString(R.string.global_currency_usd, items.revenue)
         movie_runtime.text = getString(R.string.value_minutes, items.runtime)

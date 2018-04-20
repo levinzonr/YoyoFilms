@@ -111,6 +111,10 @@
     <string name="global_currency_usd" translatable="false">$%1$d</string>
     <string name="value_minutes">%1$d mins.</string>
     <string name="title_stats">Details</string>
+    <string name="label_genre">Genre:</string>
+    <string name="label_box_office">Box Office</string>
+    <string name="label_revenue">Revenue:</string>
+    <string name="label_budget">Budget:</string>
 
 
 </resources>

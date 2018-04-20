@@ -7,7 +7,6 @@ class Movie() : Parcelable {
 
     companion object {
        const val IMG_SRC = "https://image.tmdb.org/t/p/w500"
-
         @JvmField val CREATOR = object : Parcelable.Creator<Movie> {
             override fun createFromParcel(parcel: Parcel): Movie {
                 return Movie(parcel)
@@ -17,6 +16,7 @@ class Movie() : Parcelable {
                 return arrayOfNulls(size)
             }
         }
+
     }
 
     var id: Int = -1
@@ -24,10 +24,12 @@ class Movie() : Parcelable {
     var releaseDate: String = String()
     var title: String = String()
     var overview: String? = null
-    var voteAverage: Number? = null
-    var status: String? = null
+    var voteAverage: Number? = -1
+    var status: String? = String()
 
-    var revenue: Int = 0
+    var genres = ArrayList<Genre>()
+    var tagline: String? = null
+    var revenue: Int = -1
     var runtime: Int? = null
 
     var backdropPath: String? = null
@@ -48,9 +50,11 @@ class Movie() : Parcelable {
         title = parcel.readString()
         overview = parcel.readString()
         status = parcel.readString()
+        tagline = parcel.readString()
         revenue = parcel.readInt()
         runtime = parcel.readValue(Int::class.java.classLoader) as? Int
     }
+
 
     override fun toString(): String {
         return "Movie(title='$title', overview=$overview, voteAverage=$voteAverage, status=$status)"
@@ -63,6 +67,7 @@ class Movie() : Parcelable {
         parcel.writeString(title)
         parcel.writeString(overview)
         parcel.writeString(status)
+        parcel.writeString(tagline)
         parcel.writeInt(revenue)
         parcel.writeValue(runtime)
     }
@@ -70,6 +75,5 @@ class Movie() : Parcelable {
     override fun describeContents(): Int {
         return 0
     }
-
 
 }
