@@ -1,8 +1,11 @@
 package cz.levinzonr.yoyofilms.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 
+@Entity
 class Movie() : Parcelable {
 
     companion object {
@@ -18,7 +21,7 @@ class Movie() : Parcelable {
         }
 
     }
-
+    @PrimaryKey
     var id: Int = -1
     var budget: Int = -1
     var releaseDate: String = String()
@@ -26,7 +29,6 @@ class Movie() : Parcelable {
     var overview: String? = null
     var voteAverage: Number? = -1
     var status: String? = String()
-
     var genres = ArrayList<Genre>()
     var tagline: String? = null
     var revenue: Int = -1

@@ -1,7 +1,7 @@
 package cz.levinzonr.yoyofilms.presenter
 
 import cz.levinzonr.yoyofilms.model.Movie
-import cz.levinzonr.yoyofilms.model.remote.Repository
+import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

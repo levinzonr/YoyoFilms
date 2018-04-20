@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.presenter
 
-import android.util.Log
-import cz.levinzonr.yoyofilms.model.remote.Repository
+import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.model.remote.Responce
 import cz.levinzonr.yoyofilms.view.search.FilmSearchView
 import io.reactivex.android.schedulers.AndroidSchedulers
