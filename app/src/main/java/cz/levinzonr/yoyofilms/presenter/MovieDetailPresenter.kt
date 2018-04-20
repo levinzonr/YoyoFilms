@@ -42,12 +42,9 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     }
 
     fun onFavoriteButtonClicked() {
-        if (isFavorite) {
-            view?.onRequestConfirmation {
-                if (it)
-                    removeFromFavorites()
-            }
-        } else
+        if (isFavorite)
+            removeFromFavorites()
+        else
             addToFavorites()
     }
 

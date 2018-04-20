@@ -107,7 +107,7 @@
     <string name="empty_msg">Nothing Found</string>
     <string name="error_loading_msg">An error has occured</string>
     <string name="action_retry">Retry</string>
-
+    <string name="action_undo">Undo</string>
     <string name="global_currency_usd" translatable="false">$%1$d</string>
     <string name="value_minutes">%1$d mins.</string>
     <string name="title_stats">Details</string>

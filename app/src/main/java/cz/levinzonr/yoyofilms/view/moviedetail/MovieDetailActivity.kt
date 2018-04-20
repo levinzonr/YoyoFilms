@@ -3,6 +3,7 @@ package cz.levinzonr.yoyofilms.view.moviedetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -80,8 +81,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onDeletedFromFavorites() {
-        Toast.makeText(this, R.string.favorites_deleted_message, Toast.LENGTH_SHORT).show()
         button_favorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp))
+
+        Snackbar.make(details_view,R.string.favorites_deleted_message, Snackbar.LENGTH_SHORT)
+                .setAction(R.string.action_undo, {presenter.onFavoriteButtonClicked()}).show()
     }
 
     override fun onRequestConfirmation(callback: (Boolean) -> Unit) {
