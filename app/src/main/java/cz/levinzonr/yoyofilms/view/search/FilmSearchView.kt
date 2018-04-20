@@ -7,4 +7,5 @@ interface FilmSearchView : BaseView<ArrayList<Movie>> {
 
     fun onNothingFound()
 
+    fun onEmptyQuery()
 }

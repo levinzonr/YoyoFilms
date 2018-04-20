@@ -17,6 +17,7 @@ import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_film_search.*
+import kotlinx.android.synthetic.main.view_empty.*
 
 
 class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextListener {
@@ -46,6 +47,7 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
             addItemDecoration(VerticalSpaceDecoration())
         }
         presenter.attachView(this)
+        onEmptyQuery()
 
     }
 
@@ -76,11 +78,18 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
 
     }
 
-    override fun onNothingFound() {
-        Log.d(TAG, "Something found")
+    override fun onEmptyQuery() {
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.GONE
         empty_view.visibility = View.VISIBLE
+        empty_msg.text = getString(R.string.empty_query)
+    }
+
+    override fun onNothingFound() {
+        progress_bar.visibility = View.GONE
+        recycler_view.visibility = View.GONE
+        empty_view.visibility = View.VISIBLE
+        empty_msg.text = getString(R.string.empty_msg)
     }
 
     override fun onLoadingStarted() {

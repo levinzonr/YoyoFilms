@@ -119,6 +119,7 @@
     <string name="confirmation_msg">Are you suree you want to delete this movie from favorite?</string>
     <string name="favorites_deleted_message">Movie was deleted</string>
     <string name="favorites_added_message">Added to favorites</string>
+    <string name="empty_query">Empty query</string>
 
 
 </resources>

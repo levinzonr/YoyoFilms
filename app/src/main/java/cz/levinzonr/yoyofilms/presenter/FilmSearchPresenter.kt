@@ -20,7 +20,7 @@ class FilmSearchPresenter : BasePresenter<FilmSearchView> {
 
     fun setSearchQuery(query : String) {
         if (query.isEmpty()) {
-            view?.onNothingFound()
+            view?.onEmptyQuery()
             return
         }
         view?.onLoadingStarted()
