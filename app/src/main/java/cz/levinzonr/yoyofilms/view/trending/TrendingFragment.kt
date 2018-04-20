@@ -17,6 +17,7 @@ import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_trending.*
+import kotlinx.android.synthetic.main.view_error.*
 
 
 class TrendingFragment : Fragment(), TrendingView{
@@ -44,6 +45,9 @@ class TrendingFragment : Fragment(), TrendingView{
             adapter = rvAdapter
             addItemDecoration(VerticalSpaceDecoration())
         }
+
+        button_retry.setOnClickListener({presenter.fetchNowPlaying()})
+
         presenter = TrendingPresenter()
         presenter.attachView(this)
         presenter.fetchNowPlaying()
@@ -55,9 +59,11 @@ class TrendingFragment : Fragment(), TrendingView{
         Log.d(TAG, "Laoding started")
         progress_bar.visibility = View.VISIBLE
         recycler_view.visibility = View.GONE
+        error_view.visibility = View.GONE
     }
 
     override fun onLoadingFinished(items: ArrayList<Movie>) {
+        error_view.visibility = View.GONE
         Log.d(TAG, "Loadted: ${items.size}")
         rvAdapter.items = items
         progress_bar.visibility = View.GONE
@@ -65,6 +71,7 @@ class TrendingFragment : Fragment(), TrendingView{
     }
 
     override fun onLoadingError(error: String) {
+        error_view.visibility = View.VISIBLE
         Log.d(TAG, "Error: $error")
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.GONE
