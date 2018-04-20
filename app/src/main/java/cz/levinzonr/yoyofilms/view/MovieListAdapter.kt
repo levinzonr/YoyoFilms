@@ -22,9 +22,6 @@ class MovieListAdapter(val lambda: (Movie) -> Unit) : RecyclerView.Adapter<Movie
         return this
     }
 
-    interface OnClickListener {
-        fun onItemSelected(movie: Movie)
-    }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(movie: Movie) {

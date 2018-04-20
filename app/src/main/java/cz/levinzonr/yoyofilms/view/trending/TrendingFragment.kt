@@ -36,7 +36,7 @@ class TrendingFragment : Fragment(), TrendingView{
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it.id)
+        rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it)
         })
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)

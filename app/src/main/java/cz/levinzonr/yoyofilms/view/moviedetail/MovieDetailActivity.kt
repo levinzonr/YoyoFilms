@@ -21,11 +21,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     companion object {
         private const val TAG = "DetailActivity"
-        private const val MOVIE_ID = "MovieID"
+        private const val ARG_MOVIE = "Movie"
 
-        fun startAsIntent(context: Context, id: Int) {
+        fun startAsIntent(context: Context, movie: Movie) {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_ID, id)
+            intent.putExtra(ARG_MOVIE, movie)
             context.startActivity(intent)
         }
 
@@ -37,9 +37,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         setSupportActionBar(toolbar)
+
+        val movie = intent.getParcelableExtra<Movie>(ARG_MOVIE)
+
         presenter = MovieDetailPresenter()
         presenter.attachView(this)
-        presenter.fetchMovieDetails(intent.getIntExtra(MOVIE_ID, -1))
+        presenter.fetchMovieDetails(movie.id)
+        toolbar_layout.title = movie.title
+        movie_overview.text = movie.overview
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -54,7 +59,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     }
 
     override fun onLoadingFinished(items: Movie) {
-
         toolbar_layout.title = items.title
         movie_budget.text = getString(R.string.global_currency_usd, items.budget)
         movie_overview.text = items.overview

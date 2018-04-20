@@ -38,7 +38,7 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvAdapter = MovieListAdapter({
-            MovieDetailActivity.startAsIntent(context, it.id)
+            MovieDetailActivity.startAsIntent(context, it)
         })
         recycler_view.apply {
             adapter = rvAdapter
