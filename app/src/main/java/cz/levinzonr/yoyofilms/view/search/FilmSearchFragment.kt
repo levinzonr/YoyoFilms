@@ -121,8 +121,8 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.GONE
         empty_view.visibility = View.GONE
-        Snackbar.make(recycler_view, R.string.error_loading_msg, Snackbar.LENGTH_SHORT)
-                .setAction(R.string.action_retry, {})
+        Snackbar.make(recycler_view, R.string.error_loading_msg, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.action_retry, {onQueryTextChange(presenter.query)}).show()
     }
 
 
