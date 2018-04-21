@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import cz.levinzonr.stackquestions.screens.viewutils.InfiniteScrollListener
 
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Movie
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_trending.*
 import kotlinx.android.synthetic.main.view_error.*
 
 
-class TrendingFragment : Fragment(), TrendingView{
+class TrendingFragment : Fragment(), TrendingView, InfiniteScrollListener.InfiniteScrollCallbacks{
 
     private lateinit var presenter: TrendingPresenter
     private lateinit var rvAdapter: MovieListAdapter
@@ -40,10 +41,12 @@ class TrendingFragment : Fragment(), TrendingView{
         super.onViewCreated(view, savedInstanceState)
         rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it)
         })
+        val lm = LinearLayoutManager(context)
         recycler_view.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = lm
             adapter = rvAdapter
             addItemDecoration(VerticalSpaceDecoration())
+            addOnScrollListener(InfiniteScrollListener( this@TrendingFragment, lm))
         }
 
         button_retry.setOnClickListener({presenter.fetchNowPlaying()})
@@ -53,7 +56,9 @@ class TrendingFragment : Fragment(), TrendingView{
         presenter.fetchNowPlaying()
     }
 
-
+    override fun onLoadMore(pageToLoad: Int) {
+        rvAdapter.isLoading = true
+    }
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Laoding started")
