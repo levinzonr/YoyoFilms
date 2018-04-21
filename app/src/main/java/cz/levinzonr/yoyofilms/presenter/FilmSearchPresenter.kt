@@ -13,12 +13,13 @@ class FilmSearchPresenter : BasePresenter<FilmSearchView> {
     private val repository = Repository()
     private var disposable: Disposable? = null
     private var view: FilmSearchView? = null
-
+    var query = String()
     override fun attachView(view: FilmSearchView) {
       this.view = view
     }
 
     fun setSearchQuery(query : String) {
+        this.query = query
         if (query.isEmpty()) {
             view?.onEmptyQuery()
             return

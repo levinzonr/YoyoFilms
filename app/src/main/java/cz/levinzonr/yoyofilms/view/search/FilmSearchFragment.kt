@@ -46,21 +46,18 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(VerticalSpaceDecoration())
         }
+        presenter = FilmSearchPresenter()
         presenter.attachView(this)
         onEmptyQuery()
 
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        presenter = FilmSearchPresenter()
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.menu_film_search, menu)
         menu?.findItem(R.id.action_search)?.let { searchMenuItem = it}
+       if (presenter.query.isEmpty()) searchMenuItem.expandActionView()
         ( searchMenuItem.actionView as SearchView).apply {
             setOnQueryTextListener(this@FilmSearchFragment)
             setOnCloseListener { Log.d(TAG, "closed"); true }
