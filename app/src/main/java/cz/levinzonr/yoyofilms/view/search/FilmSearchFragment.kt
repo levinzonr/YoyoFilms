@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.view.search
 
 
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -11,7 +10,7 @@ import android.util.Log
 import android.view.*
 
 import cz.levinzonr.yoyofilms.R
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.FilmSearchPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
@@ -94,7 +93,7 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         recycler_view.visibility = View.GONE
         empty_view.visibility = View.GONE    }
 
-    override fun onLoadingFinished(items: ArrayList<Movie>) {
+    override fun onLoadingFinished(items: ArrayList<Film>) {
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.VISIBLE
         rvAdapter.items = items

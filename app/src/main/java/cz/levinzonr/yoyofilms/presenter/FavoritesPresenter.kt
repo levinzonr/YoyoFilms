@@ -1,6 +1,6 @@
 package cz.levinzonr.yoyofilms.presenter
 
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.view.favorites.FavoritesView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +21,7 @@ class FavoritesPresenter : BasePresenter<FavoritesView> {
         cd.add(repository.getFavorites()
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({t: List<Movie>? -> t?.let {
+                .subscribe({t: List<Film>? -> t?.let {
                     if (it.isEmpty()) view?.onEmptyView()
                     else view?.onLoadingFinished(ArrayList(t)) } }))
     }

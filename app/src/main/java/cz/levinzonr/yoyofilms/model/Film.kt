@@ -2,22 +2,20 @@ package cz.levinzonr.yoyofilms.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
 import android.os.Parcel
 import android.os.Parcelable
-import cz.levinzonr.yoyofilms.model.local.Converters
 
 @Entity
-class Movie() : Parcelable {
+class Film() : Parcelable {
 
     companion object {
        const val IMG_SRC = "https://image.tmdb.org/t/p/w500"
-        @JvmField val CREATOR = object : Parcelable.Creator<Movie> {
-            override fun createFromParcel(parcel: Parcel): Movie {
-                return Movie(parcel)
+        @JvmField val CREATOR = object : Parcelable.Creator<Film> {
+            override fun createFromParcel(parcel: Parcel): Film {
+                return Film(parcel)
             }
 
-            override fun newArray(size: Int): Array<Movie?> {
+            override fun newArray(size: Int): Array<Film?> {
                 return arrayOfNulls(size)
             }
         }
@@ -58,7 +56,7 @@ class Movie() : Parcelable {
 
 
     override fun toString(): String {
-        return "Movie(title='$title', overview=$overview, voteAverage=$voteAverage, status=$status)"
+        return "Film(title='$title', overview=$overview, voteAverage=$voteAverage, status=$status)"
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

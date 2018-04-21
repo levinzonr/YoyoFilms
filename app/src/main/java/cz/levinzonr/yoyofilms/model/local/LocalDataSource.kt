@@ -1,6 +1,6 @@
 package cz.levinzonr.yoyofilms.model.local
 
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
@@ -10,27 +10,27 @@ class LocalDataSource {
     private val db = AppDatabase.instance
 
 
-    fun addToFavorites(movie: Movie) : Completable {
+    fun addToFavorites(film: Film) : Completable {
         return  Completable.fromCallable {
-            db.filmsDao().insert(movie)
+            db.filmsDao().insert(film)
         }
     }
 
-    fun removeFromFavorites(movie: Movie) : Completable {
+    fun removeFromFavorites(film: Film) : Completable {
         return Completable.fromCallable {
-            db.filmsDao().delete(movie)
+            db.filmsDao().delete(film)
         }
     }
 
-    fun getFavorites() : Flowable<List<Movie>> {
+    fun getFavorites() : Flowable<List<Film>> {
         return db.filmsDao().findAll()
     }
 
-    fun getFilmDetails(id: Int) : Maybe<Movie> {
+    fun getFilmDetails(id: Int) : Maybe<Film> {
         return db.filmsDao().findById(id)
     }
 
-    fun updateFilm(film: Movie) : Completable {
+    fun updateFilm(film: Film) : Completable {
         return  Completable.fromCallable {
             db.filmsDao().update(film)
         }

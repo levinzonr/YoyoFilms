@@ -2,9 +2,9 @@ package cz.levinzonr.yoyofilms.model.local
 
 import android.arch.persistence.room.*
 import cz.levinzonr.yoyofilms.App
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 
-@Database(version = 1, entities = [Movie::class])
+@Database(version = 1, entities = [Film::class])
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

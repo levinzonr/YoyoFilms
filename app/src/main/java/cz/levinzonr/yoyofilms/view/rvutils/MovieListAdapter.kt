@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import kotlinx.android.synthetic.main.item_movie.view.*
 import kotlinx.android.synthetic.main.rv_item_progress.view.*
 import kotlinx.android.synthetic.main.view_error.view.*
 
-class MovieListAdapter(val onClick: (Movie) -> Unit, val onRetry: ()->Unit = {}) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieListAdapter(val onClick: (Film) -> Unit, val onRetry: ()->Unit = {}) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val HOLDER_ITEM = 0
         private const val HOLDER_PROGRESS = 1
     }
 
-    var items = ArrayList<Movie>()
+    var items = ArrayList<Film>()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -43,13 +43,13 @@ class MovieListAdapter(val onClick: (Movie) -> Unit, val onRetry: ()->Unit = {})
 
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(movie: Movie) {
-            view.setOnClickListener({onClick(movie)})
-            view.movie_title.text = movie.title
-            view.movie_overview.text = movie.overview?.letString()
-            view.movie_rating.text = movie.voteAverage.toString()
+        fun bindView(film: Film) {
+            view.setOnClickListener({onClick(film)})
+            view.movie_title.text = film.title
+            view.movie_overview.text = film.overview?.letString()
+            view.movie_rating.text = film.voteAverage.toString()
             Picasso.get()
-                    .load(movie.getPoster())
+                    .load(film.getPoster())
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
                     .into(view.movie_image)

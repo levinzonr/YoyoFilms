@@ -21,7 +21,7 @@ class Repository {
         return remote.searchForMovies(query)
     }
 
-    fun getMovieDetails(id: Int) : Single<Movie> {
+    fun getMovieDetails(id: Int) : Single<Film> {
         return if (netManager.isConnected())
             remote.getFilmDetails(id).flatMap {
                 return@flatMap local.updateFilm(it).toSingleDefault(it)
@@ -30,23 +30,23 @@ class Repository {
             local.getFilmDetails(id).toSingle()
     }
 
-    fun getFavorites() : Flowable<List<Movie>> {
+    fun getFavorites() : Flowable<List<Film>> {
         return local.getFavorites()
     }
 
     fun isInFavorites(id: Int) : Single<Boolean> {
-        return local.getFilmDetails(id).switchIfEmpty(Maybe.just(Movie()))
+        return local.getFilmDetails(id).switchIfEmpty(Maybe.just(Film()))
                 .toSingle()
                 .flatMap {
                     return@flatMap Single.just(it.id != -1)
                 }
     }
 
-    fun addToFavorites(movie: Movie) : Completable {
-        return local.addToFavorites(movie)
+    fun addToFavorites(film: Film) : Completable {
+        return local.addToFavorites(film)
     }
-    fun removeFromFavorites(movie: Movie) : Completable {
-        return local.removeFromFavorites(movie)
+    fun removeFromFavorites(film: Film) : Completable {
+        return local.removeFromFavorites(film)
     }
 
 }

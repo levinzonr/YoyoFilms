@@ -1,9 +1,9 @@
 package cz.levinzonr.yoyofilms.view.moviedetail
 
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.view.BaseView
 
-interface MovieDetailView : BaseView<Movie>{
+interface MovieDetailView : BaseView<Film>{
 
     fun setInFavorites(favorite: Boolean)
 

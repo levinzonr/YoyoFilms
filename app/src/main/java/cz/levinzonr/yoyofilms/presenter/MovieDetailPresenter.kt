@@ -1,7 +1,7 @@
 package cz.levinzonr.yoyofilms.presenter
 
 import android.util.Log
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.model.Repository
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,7 +13,7 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     private val repository = Repository()
     private val cd = CompositeDisposable()
     private var view : MovieDetailView? = null
-    private lateinit var movie: Movie
+    private lateinit var film: Film
     private var isFavorite: Boolean = false
 
     override fun attachView(view: MovieDetailView) {
@@ -36,7 +36,7 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {resp: Movie? -> Log.d("AS:", "$resp");resp?.let {  movie = resp;view?.onLoadingFinished(resp) } },
+                        {resp: Film? -> Log.d("AS:", "$resp");resp?.let {  film = resp;view?.onLoadingFinished(resp) } },
                         {t: Throwable? ->Log.d("AS", t.toString()); view?.onLoadingError(t.toString()) }
                 ))
     }
@@ -49,7 +49,7 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     }
 
     private fun addToFavorites() {
-        cd.add(repository.addToFavorites(movie)
+        cd.add(repository.addToFavorites(film)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ isFavorite = true; view?.onAddedToFavorites()})
@@ -57,7 +57,7 @@ class MovieDetailPresenter : BasePresenter<MovieDetailView> {
     }
 
     private fun removeFromFavorites() {
-        cd.add(repository.removeFromFavorites(movie)
+        cd.add(repository.removeFromFavorites(film)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({isFavorite = false; view?.onDeletedFromFavorites()}))

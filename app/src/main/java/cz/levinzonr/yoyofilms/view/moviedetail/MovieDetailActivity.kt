@@ -12,7 +12,7 @@ import android.widget.Toast
 import com.squareup.picasso.Picasso
 import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Genre
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.MovieDetailPresenter
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.card_details.*
@@ -25,11 +25,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     companion object {
         private const val TAG = "DetailActivity"
-        private const val ARG_MOVIE = "Movie"
+        private const val ARG_MOVIE = "Film"
 
-        fun startAsIntent(context: Context, movie: Movie) {
+        fun startAsIntent(context: Context, film: Film) {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(ARG_MOVIE, movie)
+            intent.putExtra(ARG_MOVIE, film)
             context.startActivity(intent)
         }
 
@@ -40,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         setContentView(R.layout.activity_movie_detail)
         setSupportActionBar(toolbar)
 
-        val movie = intent.getParcelableExtra<Movie>(ARG_MOVIE)
+        val movie = intent.getParcelableExtra<Film>(ARG_MOVIE)
 
         presenter = MovieDetailPresenter()
         presenter.attachView(this)
@@ -97,7 +97,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         ConfirmationDialog.show(supportFragmentManager, callback)
     }
 
-    override fun onLoadingFinished(items: Movie) {
+    override fun onLoadingFinished(items: Film) {
         error_view.visibility = View.GONE
         Log.d(TAG, items.getBackdrop())
         button_favorites.isEnabled = true

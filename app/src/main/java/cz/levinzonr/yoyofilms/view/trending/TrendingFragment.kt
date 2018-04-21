@@ -11,13 +11,12 @@ import android.view.ViewGroup
 import cz.levinzonr.stackquestions.screens.viewutils.InfiniteScrollListener
 
 import cz.levinzonr.yoyofilms.R
-import cz.levinzonr.yoyofilms.model.Movie
+import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.TrendingPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_trending.*
-import kotlinx.android.synthetic.main.view_error.*
 
 
 class TrendingFragment : Fragment(), TrendingView, InfiniteScrollListener.InfiniteScrollCallbacks{
@@ -68,7 +67,7 @@ class TrendingFragment : Fragment(), TrendingView, InfiniteScrollListener.Infini
 
     }
 
-    override fun onLoadingFinished(items: ArrayList<Movie>) {
+    override fun onLoadingFinished(items: ArrayList<Film>) {
         Log.d(TAG, "Loadted: ${items.size}")
         recycler_view.post({
             rvAdapter.items.addAll(items)
