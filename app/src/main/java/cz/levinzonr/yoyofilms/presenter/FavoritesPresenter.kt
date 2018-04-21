@@ -21,7 +21,9 @@ class FavoritesPresenter : BasePresenter<FavoritesView> {
         cd.add(repository.getFavorites()
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({t: List<Movie>? -> t?.let { view?.onLoadingFinished(ArrayList(t)) } }))
+                .subscribe({t: List<Movie>? -> t?.let {
+                    if (it.isEmpty()) view?.onEmptyView()
+                    else view?.onLoadingFinished(ArrayList(t)) } }))
     }
 
     override fun detachView() {

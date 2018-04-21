@@ -25,6 +25,6 @@
 
     <include
         android:id="@+id/empty_view"
-        layout="@layout/view_empty"/>
+        layout="@layout/view_empty_search"/>
 
 </RelativeLayout>

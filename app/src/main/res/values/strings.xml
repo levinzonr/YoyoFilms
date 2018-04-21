@@ -120,6 +120,7 @@
     <string name="favorites_deleted_message">Movie was deleted</string>
     <string name="favorites_added_message">Added to favorites</string>
     <string name="empty_query">Empty query</string>
+    <string name="empty_msg_favorites">Favorites list is empty for now</string>
 
 
 </resources>

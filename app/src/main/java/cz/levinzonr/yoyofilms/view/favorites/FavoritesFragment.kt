@@ -2,9 +2,11 @@ package cz.levinzonr.yoyofilms.view.favorites
 
 
 import android.content.Context
+import android.nfc.Tag
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,21 +38,31 @@ class FavoritesFragment : Fragment(), FavoritesView {
             addItemDecoration(VerticalSpaceDecoration())
         }
         presenter = FavoritesPresenter()
-        presenter.attachView(this)
-        presenter.getFavorites()
+        presenter.apply {
+            attachView(this@FavoritesFragment)
+            getFavorites()
+        }
 
     }
 
     override fun onLoadingStarted() {
         progress_bar.visibility = View.VISIBLE
         recycler_view.visibility = View.GONE
-
+        empty_view.visibility = View.GONE
     }
 
     override fun onLoadingFinished(items: ArrayList<Movie>) {
+        empty_view.visibility = View.GONE
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.VISIBLE
+        Log.d("ERo", "items: ${items.size}")
         (recycler_view.adapter as MovieListAdapter).items = items
+    }
+
+    override fun onEmptyView() {
+        progress_bar.visibility = View.GONE
+        recycler_view.visibility = View.GONE
+        empty_view.visibility = View.VISIBLE
     }
 
     override fun onLoadingError(error: String) {

@@ -5,4 +5,6 @@ import cz.levinzonr.yoyofilms.view.BaseView
 
 interface FavoritesView : BaseView<ArrayList<Movie>> {
 
+    fun onEmptyView()
+
 }

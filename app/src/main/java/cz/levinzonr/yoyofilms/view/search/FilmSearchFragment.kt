@@ -17,7 +17,7 @@ import cz.levinzonr.yoyofilms.view.MovieListAdapter
 import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_film_search.*
-import kotlinx.android.synthetic.main.view_empty.*
+import kotlinx.android.synthetic.main.view_empty_search.*
 
 
 class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextListener {
