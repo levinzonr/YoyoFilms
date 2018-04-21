@@ -12,20 +12,28 @@ class TrendingPresenter : BasePresenter<TrendingView> {
     private val repository = Repository()
     private val cd = CompositeDisposable()
     private var view: TrendingView? = null
+    private var lastResponse: Response? = null
+    private var lastLoaded: Int = 0
 
     override fun attachView(view: TrendingView) {
         this.view = view
     }
 
-    fun fetchNowPlaying() {
+    fun fetchNowPlayingPage(page: Int = lastLoaded) {
+        lastLoaded = page
         view?.onLoadingStarted()
-        cd.add(repository.getNowPlaying(1)
+        cd.add(repository.getNowPlaying(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        {resp: Response? -> view?.onLoadingFinished(resp!!.results) },
+                        {resp: Response? -> resp?.let {
+                                lastResponse = resp
+                                view?.onLoadingFinished(resp.results)
+                            }
+                         },
                         {t: Throwable? -> view?.onLoadingError(t.toString())  }))
     }
+
 
     override fun detachView() {
         view = null

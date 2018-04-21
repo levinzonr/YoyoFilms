@@ -1,7 +1,6 @@
 package cz.levinzonr.yoyofilms.view.trending
 
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -39,8 +38,9 @@ class TrendingFragment : Fragment(), TrendingView, InfiniteScrollListener.Infini
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         Log.d(TAG, "ViewCreated")
         super.onViewCreated(view, savedInstanceState)
-        rvAdapter = MovieListAdapter({MovieDetailActivity.startAsIntent(context, it)
-        })
+        rvAdapter = MovieListAdapter(
+                {MovieDetailActivity.startAsIntent(context, it) }, {presenter.fetchNowPlayingPage()}
+        )
         val lm = LinearLayoutManager(context)
         recycler_view.apply {
             layoutManager = lm
@@ -49,37 +49,42 @@ class TrendingFragment : Fragment(), TrendingView, InfiniteScrollListener.Infini
             addOnScrollListener(InfiniteScrollListener( this@TrendingFragment, lm))
         }
 
-        button_retry.setOnClickListener({presenter.fetchNowPlaying()})
 
         presenter = TrendingPresenter()
         presenter.attachView(this)
-        presenter.fetchNowPlaying()
+        presenter.fetchNowPlayingPage(1)
     }
 
     override fun onLoadMore(pageToLoad: Int) {
-        rvAdapter.isLoading = true
+        presenter.fetchNowPlayingPage(pageToLoad)
     }
 
     override fun onLoadingStarted() {
         Log.d(TAG, "Laoding started")
-        progress_bar.visibility = View.VISIBLE
-        recycler_view.visibility = View.GONE
-        error_view.visibility = View.GONE
+        recycler_view.post{
+            rvAdapter.isLoading = true
+            rvAdapter.shoError = false
+        }
+
     }
 
     override fun onLoadingFinished(items: ArrayList<Movie>) {
-        error_view.visibility = View.GONE
         Log.d(TAG, "Loadted: ${items.size}")
-        rvAdapter.items = items
-        progress_bar.visibility = View.GONE
-        recycler_view.visibility = View.VISIBLE
+        recycler_view.post({
+            rvAdapter.items.addAll(items)
+            rvAdapter.isLoading = false
+            rvAdapter.shoError = false
+        })
+
     }
 
     override fun onLoadingError(error: String) {
-        error_view.visibility = View.VISIBLE
         Log.d(TAG, "Error: $error")
-        progress_bar.visibility = View.GONE
-        recycler_view.visibility = View.GONE
+        recycler_view.post {
+            rvAdapter.isLoading = false
+            rvAdapter.shoError = true
+        }
+
     }
 
     override fun onDestroyView() {
