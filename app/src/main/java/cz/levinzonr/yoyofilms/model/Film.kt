@@ -83,4 +83,24 @@ class Film() : Parcelable {
         return "$IMG_SRC${backdropPath?: posterPath}"
     }
 
+    fun getBudget() : String {
+        return "$${budget.asString()}"
+    }
+
+    fun getRevenue() : String {
+        return "$${revenue.asString()}"
+    }
+
+
+    fun Int.asString() : String {
+        val str = this.toString()
+        var ret = String()
+        str.forEachIndexed { index, c ->
+            val coma = index % 3 == 0 && index != 0
+            ret += if (coma) ",$c"
+            else "$c"
+        }
+        return ret
+    }
+
 }

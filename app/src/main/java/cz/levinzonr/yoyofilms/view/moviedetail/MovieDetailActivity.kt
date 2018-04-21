@@ -102,11 +102,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         Log.d(TAG, items.getBackdrop())
         button_favorites.isEnabled = true
         toolbar_layout.title = items.title
-        movie_budget.text = getString(R.string.global_currency_usd, items.budget)
+        movie_budget.text = items.getBudget()
         movie_rd.text = items.releaseDate
         movie_genre.text = items.genres.asString()
         movie_overview.text = items.overview
-        movie_revenue.text = getString(R.string.global_currency_usd, items.revenue)
+        movie_revenue.text = items.getRevenue()
         movie_runtime.text = getString(R.string.value_minutes, items.runtime)
         movie_rating.text = items.voteAverage.toString()
         Log.d(TAG, items.toString())
