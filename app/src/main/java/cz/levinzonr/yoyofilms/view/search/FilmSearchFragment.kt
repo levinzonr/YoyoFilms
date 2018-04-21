@@ -94,7 +94,8 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putString(SAVED_QUERY, presenter.query)
-        outState?.putBoolean(SAVED_STATE, searchMenuItem.isActionViewExpanded)
+        if (::searchMenuItem.isInitialized)
+         outState?.putBoolean(SAVED_STATE, searchMenuItem.isActionViewExpanded)
     }
 
     override fun onNothingFound() {
