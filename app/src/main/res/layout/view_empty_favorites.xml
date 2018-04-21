@@ -11,7 +11,7 @@
         android:tint="@color/colorPrimaryDark"
         android:src="@drawable/ic_favorite_border_white_24dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="@dimen/icon_empty_height" />
 
     <TextView
         android:gravity="center"
