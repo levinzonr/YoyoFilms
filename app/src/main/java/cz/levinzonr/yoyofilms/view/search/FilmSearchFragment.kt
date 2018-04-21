@@ -14,7 +14,7 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.FilmSearchPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
-import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
+import cz.levinzonr.yoyofilms.view.rvutils.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_film_search.*
 import kotlinx.android.synthetic.main.view_empty_search.*
@@ -28,6 +28,8 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
 
     companion object {
         const val TAG = "FilmSearchFragment"
+        const val SAVED_QUERY = "SavedQuery"
+        const val SAVED_STATE = "IsSearchActive"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +52,11 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         presenter.attachView(this)
         onEmptyQuery()
 
+        if (savedInstanceState != null) {
+            presenter.query = savedInstanceState.getString(SAVED_QUERY)
+            presenter.active = savedInstanceState.getBoolean(SAVED_STATE)
+        }
+
     }
 
 
@@ -57,9 +64,11 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.menu_film_search, menu)
         menu?.findItem(R.id.action_search)?.let { searchMenuItem = it}
-       if (presenter.query.isEmpty()) searchMenuItem.expandActionView()
+       if (presenter.query.isEmpty() || presenter.active) searchMenuItem.expandActionView()
+
         ( searchMenuItem.actionView as SearchView).apply {
             setOnQueryTextListener(this@FilmSearchFragment)
+            setQuery(presenter.query, false)
             setOnCloseListener { Log.d(TAG, "closed"); true }
         }
         searchMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
@@ -80,6 +89,12 @@ class FilmSearchFragment : Fragment(), FilmSearchView, SearchView.OnQueryTextLis
         recycler_view.visibility = View.GONE
         empty_view.visibility = View.VISIBLE
         empty_msg.text = getString(R.string.empty_query)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putString(SAVED_QUERY, presenter.query)
+        outState?.putBoolean(SAVED_STATE, searchMenuItem.isActionViewExpanded)
     }
 
     override fun onNothingFound() {

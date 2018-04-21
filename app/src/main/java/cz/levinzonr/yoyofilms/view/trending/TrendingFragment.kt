@@ -14,8 +14,8 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.TrendingPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
-import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
+import cz.levinzonr.yoyofilms.view.rvutils.VerticalSpaceDecoration
 import kotlinx.android.synthetic.main.fragment_trending.*
 
 

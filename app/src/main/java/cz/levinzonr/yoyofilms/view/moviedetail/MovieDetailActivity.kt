@@ -57,7 +57,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         button_retry.setOnClickListener({
             presenter.fetchMovieDetails(movie.id)
         })
-
     }
 
     override fun setInFavorites(favorite: Boolean) {

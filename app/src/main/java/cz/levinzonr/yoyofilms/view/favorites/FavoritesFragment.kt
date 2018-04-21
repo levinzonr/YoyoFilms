@@ -13,7 +13,7 @@ import cz.levinzonr.yoyofilms.R
 import cz.levinzonr.yoyofilms.model.Film
 import cz.levinzonr.yoyofilms.presenter.FavoritesPresenter
 import cz.levinzonr.yoyofilms.view.MovieListAdapter
-import cz.levinzonr.yoyofilms.view.VerticalSpaceDecoration
+import cz.levinzonr.yoyofilms.view.rvutils.VerticalSpaceDecoration
 import cz.levinzonr.yoyofilms.view.moviedetail.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
