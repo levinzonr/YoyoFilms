@@ -74,6 +74,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         details_progressbar.visibility = View.VISIBLE
         error_view.visibility = View.GONE
         button_favorites.isEnabled = false
+        movie_tagline.visibility = View.INVISIBLE
+        movie_status.visibility = View.INVISIBLE
     }
 
     fun ArrayList<Genre>.asString() : String {
@@ -99,11 +101,20 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     override fun onLoadingFinished(items: Film) {
         error_view.visibility = View.GONE
+
         Log.d(TAG, items.getBackdrop())
         button_favorites.isEnabled = true
         toolbar_layout.title = items.title
         movie_budget.text = items.getBudget()
         movie_rd.text = items.releaseDate
+        movie_status.apply {
+            text = items.status
+            visibility = View.VISIBLE
+        }
+        movie_tagline.apply {
+            text =items.tagline
+            visibility = View.VISIBLE
+        }
         movie_genre.text = items.genres.asString()
         movie_overview.text = items.overview
         movie_revenue.text = items.getRevenue()
@@ -121,6 +132,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         error_view.visibility = View.VISIBLE
         details_view.visibility = View.GONE
         details_progressbar.visibility = View.GONE
+        movie_tagline.visibility = View.GONE
+        movie_status.visibility = View.GONE
     }
 
     override fun onDestroy() {
