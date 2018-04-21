@@ -21,6 +21,9 @@ class TrendingPresenter : BasePresenter<TrendingView> {
 
     fun fetchNowPlayingPage(page: Int = lastLoaded) {
         lastLoaded = page
+        lastResponse?.let {
+            if (!it.hasMore()) return
+        }
         view?.onLoadingStarted()
         cd.add(repository.getNowPlaying(page)
                 .observeOn(AndroidSchedulers.mainThread())
